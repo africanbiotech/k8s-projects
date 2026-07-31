@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Production</title>
+      </head>
+      <body>
+        <h1>Production Environment</h1>
+        <h2>Welcome to Production</h2>
+        <p>Production platform is running successfully.</p>
+      </body>
+    </html>
+
+
+

@@ -2,19 +2,52 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  
+
 spec:
   replicas: 3
+
   selector:
     matchLabels:
       app: nginx
+
   template:
     metadata:
       labels:
         app: nginx
+
     spec:
       containers:
       - name: nginx
         image: nginx:latest
+
         ports:
         - containerPort: 80
+
+        env:
+        - name: APP_ENV
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: APP_ENV
+
+        - name: APP_OWNER
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: APP_OWNER
+
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: API_KEY  
+
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config

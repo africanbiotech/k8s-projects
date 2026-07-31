@@ -6,3 +6,4 @@ namespace: qa
 resources:
   - ../../base
   - namespace.yaml
+  - configmap.yaml
